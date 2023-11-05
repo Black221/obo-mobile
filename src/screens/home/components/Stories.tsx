@@ -30,8 +30,8 @@ export default function Stories () {
         <ScrollView space={10} horizontal>
             <MyStory />
             {loading ? <Text>Loading...</Text> : <XStack space={18}>
-                {users.map((user: any) => (
-                    <Story first_name={user.first_name} avatar={user.avatar} last_name={user.last_name} />
+                {users.map((user: any, index) => (
+                    <Story  key={index}  first_name={user.first_name} avatar={user.avatar} last_name={user.last_name} />
                 ))}
             </XStack>}
         </ScrollView>

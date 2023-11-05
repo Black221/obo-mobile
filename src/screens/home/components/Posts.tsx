@@ -32,8 +32,8 @@ export default function Posts () {
         <View>
             {loading ? <View><Text>Loading...</Text></View> 
             : <View space={0}>
-                {users.map((user: any) => (
-                    <Post username={user.first_name} avatar={user.avatar} post={user.avatar} />
+                {users.map((user: any, index) => (
+                    <Post key={index} username={user.first_name} avatar={user.avatar} post={user.avatar} />
                 ))}
             </View>}
         </View>
