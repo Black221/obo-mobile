@@ -1,11 +1,11 @@
-import { TamaguiProvider, Theme, View, Text, Button } from 'tamagui'
+import { TamaguiProvider, Theme, View, Text, Button, Stack } from 'tamagui'
 import { useFonts } from 'expo-font'
 import { StatusBar } from 'expo-status-bar';
 import config from './tamagui.config'
 import { randomNumber } from '@/utils/random';
 import { useState } from 'react';
-import Home from '@/screens/home';
-
+import StackNav from '@/navigation/StackNav';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
 
@@ -22,7 +22,10 @@ export default function App() {
   return (
     <TamaguiProvider config={config}>
       <Theme name="light">
-        <Home />
+        {/* rendu */}
+        <NavigationContainer>
+          <StackNav />
+        </NavigationContainer>
 			</Theme>
 			<StatusBar style="light" backgroundColor='black' animated={true}  hidden={false} translucent={false} />
     </TamaguiProvider>
