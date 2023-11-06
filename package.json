@@ -5,7 +5,7 @@
   "scripts": {
     "ts:check": "tsc",
     "build": "expo build",
-    "start": "expo start -c",
+    "start": "npx expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
