@@ -7,7 +7,7 @@ import { imgInstance } from "@/api/imgApi";
 export default function Posts () {
 
 
-    const  [response, loading, fetch] = useAxiosFunction();
+    const  [response, error, loading, fetch] = useAxiosFunction();
 
     const [users, setUsers] = useState([]);
 
