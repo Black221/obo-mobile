@@ -1,15 +1,15 @@
 import {View, ScrollView} from 'tamagui';
-import {DescriptionComponent} from "@screens/profil/components/Description/description.component";
-import {CoverComponent} from "@screens/profil/components/Cover/cover.component";
-import {ContactComponent} from "@screens/profil/components/Contact/contact.component";
-import {StatComponent} from "@screens/profil/components/Stat/stat.component";
+import {DescriptionComponent} from "@screens/profil/components/description.component";
+import {CoverComponent} from "@screens/profil/components/cover.component";
+import {ContactComponent} from "@screens/profil/components/contact.component";
+import {StatComponent} from "@screens/profil/components/stat.component";
 //  16 =>
 //  18 =>
 //  20 =>
 export const ProfilScreen = () => {
 
     const imageTest:string = "http://placekitten.com/200/300";
-    const textDescrition = " lord This is the most no sens description  for describe what we do because I really have no more inspiration and this part of text must be write in 4 lines or more, so follow us and take tour 😆 "
+    const textDescrition = "This is the most no sens description  for describe what we do because I really have no more inspiration and this part of text must be write in 4 lines or more, so follow us and take tour 😆 "
 
     return (
         <ScrollView>
@@ -17,7 +17,7 @@ export const ProfilScreen = () => {
                 <CoverComponent coverImage={imageTest} profilImage={imageTest} profilName={"Stark Industry"}/>
                 <DescriptionComponent text={textDescrition} />
                 <ContactComponent/>
-                <StatComponent likes={5000000} views={5000} followers={50} />
+                <StatComponent likes={5000000} views={50000000} followers={1500000} />
             </View>
         </ScrollView>
 
