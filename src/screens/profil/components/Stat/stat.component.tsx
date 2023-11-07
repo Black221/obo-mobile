@@ -56,6 +56,7 @@ export const StatComponent = ({likes, views, followers}:StatProps = {
                 <FontAwesome5 name="eye" size={24} color="#0f53e3" />
                 <Text fontSize={18} color={"black"}  fontWeight={"bold"} > {getRenderStatValue(stat.views)} </Text>
                 <Text fontSize={16} color={"gray"}> Views </Text>
+
             </YStack>
             <YStack w={2} h={40} bg={"#D9D9D9"}/>
             <YStack justifyContent={"center"} alignItems={"center"}>
