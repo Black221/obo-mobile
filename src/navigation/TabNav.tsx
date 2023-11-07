@@ -2,6 +2,7 @@ import Home from '@/screens/home';
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image } from 'tamagui';
+import {ProfilScreen} from "@screens/profil/profil.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,7 +47,7 @@ export default function TabNav () {
                     <FontAwesome5 name="video" size={24} color={focused ? "black" : "gray"} />
                 )
             }} />
-            <Tab.Screen name="Profile" component={SettingsScreen} options={{
+            <Tab.Screen name="Profile" component={ProfilScreen} options={{
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (

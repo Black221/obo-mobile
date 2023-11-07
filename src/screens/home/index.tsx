@@ -10,7 +10,7 @@ export default function Home() {
 
 
     return (
-        <ScrollView bg={"white"} space={6}>
+        <ScrollView bg={"white"} space={7}>
             <Header />
             <Stories />
             <Posts />
