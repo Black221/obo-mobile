@@ -30,7 +30,7 @@ export const Categorie: React.FC<CategorieProps> = ({ active, children }) => {
 }
 export const Categories: React.FC<CategoriesProps> = ({children}) => {
     return(
-        <ScrollView horizontal={true} style={styles.container}>
+        <ScrollView horizontal={true} style={styles.container} showsHorizontalScrollIndicator={false}>
             {children}
         </ScrollView>
     );

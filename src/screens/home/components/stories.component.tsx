@@ -51,7 +51,7 @@ export const Story: React.FC<StoryProps> = ({   userName, storyPreview, profilIm
 }
 export const Stories: React.FC<StoriesProps> = ({children}) => {
     return(
-        <ScrollView horizontal={true} space={12} m={10}>
+        <ScrollView horizontal={true} space={12} m={10} showsHorizontalScrollIndicator={false}>
             {children}
         </ScrollView>
     );

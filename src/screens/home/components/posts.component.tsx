@@ -4,7 +4,7 @@ import {useState, useEffect, ReactNode} from "react";
 import useAxiosFunction from "@/hooks/useAxios";
 import { imgInstance } from "@/api/imgApi";
 import { ReactChildren } from "App";
-import {StyleSheet, Dimensions} from "react-native";
+import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, FlatList} from "react-native";
 
 type ImageBoxProps = {
     children?: ReactChildren,
@@ -26,16 +26,6 @@ type PostHeaderProps = {
     time:string,
     location:string,
 }
-
-const styles = StyleSheet.create({
-    post: {
-        position: "absolute",
-        height: 450,
-        width: 200,
-        flex: 1,
-        resizeMode: 'cover',
-    },
-});
 
 export default function Posts () {
     const  [response, error, loading, fetch] = useAxiosFunction();
@@ -62,7 +52,7 @@ export default function Posts () {
             {loading ? <View><Text>Loading...</Text></View> 
             : <View>
                 {users.map((user: any, id) => (
-                    <Post key={id} userName={user.first_name} avatar={user.avatar} posts={[user.avatar, user.avatar ]} time={"2 hours ago"} location={"New York"} />
+                    <Post key={id} userName={user.first_name} avatar={user.avatar} posts={[user.avatar, user.avatar, user.avatar,user.avatar  ]} time={"2 hours ago"} location={"New York"} />
                 ))}
             </View>}
         </View>
@@ -73,7 +63,6 @@ export const Post: React.FC<PostProps> = ({userName, avatar, posts, time, locati
         <View position="relative" borderColor={"gray"} borderWidth={2} borderRadius={20} m={10} >
             <PostHeader avatar={avatar} location={location} time={time} userName={userName}/>
             <ImageBox posts={posts}/>
-
 
             <XStack p={20} pt={16}>
                 <XStack space={16} flex={1}>
@@ -117,23 +106,40 @@ const PostHeader: React.FC<PostHeaderProps> = ({avatar, userName, time, location
     );
 }
 const ImageBox: React.FC<ImageBoxProps> = ({posts}) => {
-    const Rounded: React.FC = () => {
+    const Rounded: React.FC<{active:boolean}> = ({active}) => {
         return (
-            <View width={10} height={10} borderRadius={10} bg={"#D9D9D9"} />
+            active? (<View width={5} height={5} borderRadius={10} bg={"#D9D9D9"} />)
+                :
+                (<View width={5} height={5} borderRadius={10} bg={"black"} />)
         )
+    }
+
+    const [active, setActive] = useState(1);
+    const windowWidth = Dimensions.get('window').width;
+
+    function onScrollEnd(e:any) {
+        let pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / windowWidth + 0.5) + 1, 0), posts.length);
+        setActive(pageNumber)
     }
 
     return (
         <View>
-            <ScrollView position={"relative"} horizontal={true} h={450} >
-                <XStack>
-                    {posts.map((post, id) =>
-                        <ImageChild key={id} src={post} />
-                    )}
-                </XStack>
-            </ScrollView>
+            <FlatList
+                pagingEnabled={true}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={posts}
+                onMomentumScrollEnd={(e) => onScrollEnd(e)}
+                renderItem={ ({item, index}) => <ImageChild key={index} src={item} /> }
+            />
+
             <XStack space={5} position={"absolute"} top={"90%"} left={"50%"} transform={"translateX(0)"} >
-                {posts.map(() => <Rounded/>)}
+                {posts.map((post, id) => {
+                    if ( id+1 === active ) {
+                        return <Rounded active={true} />
+                    }
+                    return <Rounded active={false} />
+                })}
             </XStack>
         </View>
     );
@@ -141,8 +147,8 @@ const ImageBox: React.FC<ImageBoxProps> = ({posts}) => {
 const ImageChild: React.FC<ImageChildProps> = ({ src }) => {
     const windowWidth = Dimensions.get('window').width;
     return (
-        <View h={400} w={windowWidth-20} bg={"black"}  position={"relative"}>
-            <Image position={"absolute"} top={0} w={"100%"} h={450} resizeMode={"cover"} flex={1} source={{
+        <View h={400} w={windowWidth-25} bg={"black"}  position={"relative"}>
+            <Image position={"absolute"} top={0} left={0} w={"100%"} h={450} resizeMode={"cover"} flex={1} source={{
                 uri:src
             }} />
         </View>

@@ -17,7 +17,7 @@ export default function Home(): React.FC<any> | JSX.Element {
 
 
     return (
-        <ScrollView bg={"white"} space={20} paddingTop={10} >
+        <ScrollView bg={"white"} space={20} paddingTop={10} showsVerticalScrollIndicator={false}>
             <Header/>
 
             <YStack>
@@ -34,6 +34,8 @@ export default function Home(): React.FC<any> | JSX.Element {
             <YStack>
                 <Text fontWeight={"bold"} fontSize={16} >Stories</Text>
                 <Stories>
+                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
+                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
                     <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
                     <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
                 </Stories>
