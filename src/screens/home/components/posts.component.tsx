@@ -108,7 +108,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({avatar, userName, time, location
 const ImageBox: React.FC<ImageBoxProps> = ({posts}) => {
     const Rounded: React.FC<{active:boolean}> = ({active}) => {
         return (
-            active? (<View width={5} height={5} borderRadius={10} bg={"#D9D9D9"} />)
+            active? (<View width={30} height={5} borderRadius={10} bg={"#D9D9D9"} />)
                 :
                 (<View width={5} height={5} borderRadius={10} bg={"black"} />)
         )
@@ -133,7 +133,7 @@ const ImageBox: React.FC<ImageBoxProps> = ({posts}) => {
                 renderItem={ ({item, index}) => <ImageChild key={index} src={item} /> }
             />
 
-            <XStack space={5} position={"absolute"} top={"90%"} left={"50%"} transform={"translateX(0)"} >
+            <XStack  width={"100%"} flex={1} justifyContent={"center"} alignItems={"flex-end"} space={5} position={"absolute"} bottom={10} >
                 {posts.map((post, id) => {
                     if ( id+1 === active ) {
                         return <Rounded active={true} />

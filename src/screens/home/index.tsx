@@ -17,21 +17,14 @@ export default function Home(): React.FC<any> | JSX.Element {
 
     return (
         <ScrollView bg={"white"} space={20} paddingTop={10} showsVerticalScrollIndicator={false}>
-            <Header/>
 
             <YStack>
-                <Text fontWeight={"bold"} fontSize={16} >Categories</Text>
+                <Header/>
+                <Text p={10} fontWeight={"bold"} fontSize={16} >Categories</Text>
                 <Categories/>
-
-            </YStack>
-
-            <YStack>
-                <Text fontWeight={"bold"} fontSize={16} >Stories</Text>
+                <Text p={10} fontWeight={"bold"} fontSize={16} >Stories</Text>
                 <Stories/>
-            </YStack>
-
-            <YStack>
-                <Text fontWeight={"bold"} fontSize={16} >Actuality</Text>
+                <Text p={10} fontWeight={"bold"} fontSize={16} >Actuality</Text>
                 <Posts/>
             </YStack>
         </ScrollView>
