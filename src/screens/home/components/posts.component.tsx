@@ -1,17 +1,27 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import {View, XStack, Image, Text, YStack, ScrollView} from "tamagui";
-import {useState, useEffect, ReactNode} from "react";
+import {View, XStack, Image, Text, YStack, ScrollView, useGroupItem} from "tamagui";
+import React, {useState, useEffect, ReactNode, useRef} from "react";
 import useAxiosFunction from "@/hooks/useAxios";
 import { imgInstance } from "@/api/imgApi";
 import { ReactChildren } from "App";
-import { Dimensions, NativeScrollEvent, NativeSyntheticEvent, FlatList} from "react-native";
+import {
+    Dimensions,
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    FlatList,
+    Image as RImage,
+    View as RView,
+    Animated,
+    PanResponder
+} from "react-native";
 
-type ImageBoxProps = {
+type MediaBoxProps = {
     children?: ReactChildren,
     posts:string[]
 }
-type ImageChildProps = {
-    src:string
+type MediaProps = {
+    src:string,
+    width?:number
 }
 type PostProps = {
     userName: string,
@@ -62,31 +72,15 @@ export const Post: React.FC<PostProps> = ({userName, avatar, posts, time, locati
     return (
         <View position="relative" borderColor={"#0000004D"} borderWidth={1} borderRadius={20} m={10} >
             <PostHeader avatar={avatar} location={location} time={time} userName={userName}/>
-            <ImageBox posts={posts}/>
-
-            <XStack p={20} pt={16}>
-                <XStack space={16} flex={1}>
-                    <FontAwesome5 name="heart" size={28} color="black" />
-                    <FontAwesome5 name="comment" size={28} color="black" />
-                    <FontAwesome5 name="paper-plane" size={28} color="black" />
-                </XStack>
-                <View>
-                    <FontAwesome5 name="bookmark" size={28} color="black" />
-                </View>
-            </XStack>
-            <View p={20} pt={0} space={10}>
-                <Text>8 j'aimes</Text>
-                <XStack flex={1} space={10} alignItems="center">
-                    <Image w={32} h={32} borderRadius={32} source={{
-                        uri: avatar ? avatar : "http://placekitten.com/200/300"
-                    }} />
-                    <Text>Ajouter un commentaire</Text>
-                </XStack>
-                <Text>il y'a 3 jours</Text>
-            </View>
+            <MediaBox posts={posts}/>
+            <PostFooter/>
+            <PostAddon/>
         </View>
     )
 }
+
+
+
 const PostHeader: React.FC<PostHeaderProps> = ({avatar, userName, time, location}) => {
     return (
         <XStack p={20} alignItems="center">
@@ -105,51 +99,148 @@ const PostHeader: React.FC<PostHeaderProps> = ({avatar, userName, time, location
         </XStack>
     );
 }
-const ImageBox: React.FC<ImageBoxProps> = ({posts}) => {
+const PostFooter: React.FC = () => {
+    return (
+        <XStack p={20} pt={16}>
+            <XStack space={16} flex={1}>
+                <FontAwesome5 name="heart" size={28} color="black" />
+                <FontAwesome5 name="comment" size={28} color="black" />
+                <FontAwesome5 name="paper-plane" size={28} color="black" />
+            </XStack>
+            <View>
+                <FontAwesome5 name="bookmark" size={28} color="black" />
+            </View>
+        </XStack>
+    );
+}
+const PostAddon: React.FC = () => {
+    return (
+        <View p={20} pt={0} space={10}>
+            <Text>8 j'aimes</Text>
+            <XStack flex={1} space={10} alignItems="center">
+                <Image w={32} h={32} borderRadius={32} source={{
+                    uri: "http://placekitten.com/200/300"
+                }} />
+                <Text>Ajouter un commentaire</Text>
+            </XStack>
+            <Text>il y'a 3 jours</Text>
+        </View>
+    );
+}
+const MediaBox: React.FC<MediaBoxProps> = ({posts}) => {
+
+    //[TODO] Animations for rounded *later
+        const [postion, setPostion] = useState(new Animated.Value(0))
+        const [opacity, __] = useState(new Animated.Value(1))
+        const [width,___] = useState(new Animated.Value(1))
+        const pushValue = 1;
+        const pushToLeft = () => {
+            const animatedPosition = Animated.spring(postion, {
+                toValue: pushValue * (active-1),
+                // duration: 1,
+                useNativeDriver: true
+            });
+
+            animatedPosition.start(({finished}) => {
+                if (finished) {
+                    animatedPosition.reset()
+                    setPostion(new Animated.Value(pushValue * (active-1)))
+                    // postion.setOffset(20);
+
+                }
+            })
+        }
+        const pushToRight = () => {
+            const animatedPosition = Animated.spring(postion, {
+                toValue: -pushValue*(active-1),
+                // duration: 1,
+                useNativeDriver:true
+            });
+
+            animatedPosition.start(({finished}) => {
+                if ( finished ) {
+                    animatedPosition.reset()
+                    setPostion(new Animated.Value(-pushValue*(active-1)))
+                }
+            })
+
+        }
+
     const Rounded: React.FC<{active:boolean}> = ({active}) => {
         return (
-            active? (<View width={30} height={5} borderRadius={10} bg={"#D9D9D9"} />)
+            active? (<Animated.View
+                    style={[
+                        {
+                            borderRadius:5,
+                            width: 50,
+                            height: 5,
+                            opacity,
+                            zIndex: 2,
+                            backgroundColor: "gray",
+                            transform:[
+                                {
+                                    translateX:postion
+                                },
+                                {
+                                    scaleX: width
+                                }
+                            ]
+                        },
+                    ]}
+                />)
                 :
                 (<View width={5} height={5} borderRadius={10} bg={"black"} />)
         )
     }
 
     const [active, setActive] = useState(1);
-    const windowWidth = Dimensions.get('window').width;
+    const [layout, setLayout] = useState({
+        width: 0,
+        height: 0,
+    });
 
     function onScrollEnd(e:any) {
+        const windowWidth = Dimensions.get('window').width;
         let pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / windowWidth + 0.5) + 1, 0), posts.length);
+        if ( pageNumber >= active ) {
+            pushToLeft()
+        }else {
+            pushToRight()
+        }
         setActive(pageNumber)
     }
 
     return (
-        <View>
+        <RView
+            style={{
+                height: 450,
+            }}
+           onLayout={(event) => setLayout(event.nativeEvent.layout)}
+        >
             <FlatList
-                pagingEnabled={true}
                 horizontal={true}
+                pagingEnabled={true}
                 showsHorizontalScrollIndicator={false}
-                data={posts}
+                contentContainerStyle={{
+                }}
                 onMomentumScrollEnd={(e) => onScrollEnd(e)}
-                renderItem={ ({item, index}) => <ImageChild key={index} src={item} /> }
+                data={posts}
+                renderItem={( {item, index} ) => <Media key={index} width={layout.width} src={item} /> }
             />
 
-            <XStack  width={"100%"} flex={1} justifyContent={"center"} alignItems={"flex-end"} space={5} position={"absolute"} bottom={10} >
-                {posts.map((post, id) => {
-                    if ( id+1 === active ) {
-                        return <Rounded active={true} />
-                    }
-                    return <Rounded active={false} />
-                })}
+            <XStack  width={"100%"} flex={1} justifyContent={"center"} alignItems={"flex-end"} space={10} position={"absolute"} bottom={10} >
+                {posts.map((post, id) => (id+1 === active) ? (<Rounded active={true}/>)
+                    : (<Rounded active={false}/>)
+                )}
             </XStack>
-        </View>
+        </RView>
     );
 }
-const ImageChild: React.FC<ImageChildProps> = ({ src }) => {
-    const windowWidth = Dimensions.get('window').width;
+const Media: React.FC<MediaProps> = ({ src, width }) => {
     return (
-        <View h={400} w={windowWidth-25} bg={"black"}  position={"relative"}>
-            <Image position={"absolute"} top={0} left={0} w={"100%"} h={450} resizeMode={"cover"} flex={1} source={{
-                uri:src
+        <View width={width}  >
+            <RImage style={ { width:"100%", height: "100%", resizeMode: "cover" } } source={{
+                uri: src
             }} />
         </View>
     );
