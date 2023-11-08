@@ -13,7 +13,6 @@ import Posts from "@screens/home/components/posts.component";
 
 export default function Home(): React.FC<any> | JSX.Element {
 
-    const imageTest:string = "http://placekitten.com/200/300";
 
 
     return (
@@ -22,23 +21,13 @@ export default function Home(): React.FC<any> | JSX.Element {
 
             <YStack>
                 <Text fontWeight={"bold"} fontSize={16} >Categories</Text>
-                <Categories>
-                    <Categorie active={false}>Short</Categorie>
-                    <Categorie active={true}>Medium...</Categorie>
-                    <Categorie active={false}>Medium</Categorie>
-                    <Categorie active={false}>Medium</Categorie>
-                    <Categorie active={false}>Medium</Categorie>
-                </Categories>
+                <Categories/>
+
             </YStack>
 
             <YStack>
                 <Text fontWeight={"bold"} fontSize={16} >Stories</Text>
-                <Stories>
-                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
-                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
-                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
-                    <Story userName={"Nom"} storyPreview={imageTest} profilImage={imageTest} />
-                </Stories>
+                <Stories/>
             </YStack>
 
             <YStack>

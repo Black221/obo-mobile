@@ -60,7 +60,7 @@ export default function Posts () {
 }
 export const Post: React.FC<PostProps> = ({userName, avatar, posts, time, location}) => {
     return (
-        <View position="relative" borderColor={"gray"} borderWidth={2} borderRadius={20} m={10} >
+        <View position="relative" borderColor={"#0000004D"} borderWidth={1} borderRadius={20} m={10} >
             <PostHeader avatar={avatar} location={location} time={time} userName={userName}/>
             <ImageBox posts={posts}/>
 
