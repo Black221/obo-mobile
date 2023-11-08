@@ -7,6 +7,13 @@ import { useState } from 'react';
 import StackNav from '@/navigation/StackNav';
 import { NavigationContainer } from '@react-navigation/native';
 
+/* CAS CONTEXT */
+export type ReactChildren = React.ReactNode
+    | React.ReactElement
+    | React.ReactNode[]
+    | React.ReactElement[]
+
+
 export default function App() {
 
   const [rand, setRand] = useState(randomNumber(0, 100));

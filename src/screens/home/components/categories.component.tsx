@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, StyleSheet,Text } from 'react-native';
 import {ScrollView} from "tamagui";
-
-/* CAS CONTEXT */
-export type ReactChildren = React.ReactNode
-    | React.ReactElement
+import {ReactChildren} from "../../../../App";
 
 
 
