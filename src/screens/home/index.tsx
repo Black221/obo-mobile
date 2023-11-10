@@ -4,17 +4,19 @@ import {Categories} from "./components/categories.component";
 import {Stories} from "./components/stories.component";
 import Header from "./components/header.component";
 import Posts from "@screens/home/components/posts.component";
+import { HomeHeader } from "@/components/screenHeaders";
 
 
-export default function Home(): React.FC<any> | JSX.Element {
+export default function HomeScreen() {
 
 
 
     return (
-        <ScrollView bg={"white"} space={20} paddingTop={10} showsVerticalScrollIndicator={false}>
+        <ScrollView bg={"white"}  paddingTop={10} showsVerticalScrollIndicator={false}>
 
+            <HomeHeader/>
+            
             <YStack>
-                <Header/>
                 <Text p={10} fontWeight={"bold"} fontSize={16} >Categories</Text>
                 <Categories/>
                 <Text p={10} fontWeight={"bold"} fontSize={16} >Stories</Text>

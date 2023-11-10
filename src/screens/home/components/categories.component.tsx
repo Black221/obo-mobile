@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, GestureResponderEvent} from 'react-native';
-import {ScrollView, XStack} from "tamagui";
+import {View, StyleSheet, Text, FlatList} from 'react-native';
 import {ReactChildren} from "../../../../App";
-import {Story} from "@screens/home/components/stories.component";
 
 type CategorieProps = {
     active: boolean,
@@ -16,6 +14,8 @@ type CategorieProps = {
 type CategoriesProps = {
     children?: ReactChildren,
 }
+
+
 export const Categorie: React.FC<CategorieProps> = ({ active, children, resetActive , id}) => {
 
     const [actived, setActived] = useState(active);
@@ -26,12 +26,12 @@ export const Categorie: React.FC<CategorieProps> = ({ active, children, resetAct
 
     return (
         actived ? (
-                <View style={styles.squareActive} onTouchStart={() => resetActive(id)}>
+                <View key={id} style={styles.squareActive} onTouchStart={() => resetActive(id)}>
                     <Text style={styles.textActive}>{children}</Text>
                 </View>
             ) :
             (
-                <View style={styles.square}  onTouchStart={() => resetActive(id)}>
+                <View key={id} style={styles.square}  onTouchStart={() => resetActive(id)}>
                     <Text style={styles.text}>{children}</Text>
                 </View>
             )
@@ -45,17 +45,28 @@ const categories: any = [
     {children: "extraaa laaaarge"},
     {children: "extraaa extraaa laaaarge"},
 ]
+
+
 export const Categories: React.FC<CategoriesProps> = ({children}) => {
+
     const [ active, setActive ] = useState([false, false, false, false, false, false]);
+
     const resetActive = (key:number): void => {
         setActive(active => active.map( (a, id) => id === key));
     }
+
     return(
-        <ScrollView horizontal={true} style={styles.container} showsHorizontalScrollIndicator={false}>
-            <XStack>
-                {categories.map( (categorie:any, id:number) => <Categorie key={id} id={id} active={active[id]}  resetActive={resetActive}>{categorie.children}</Categorie> )}
-           </XStack>
-        </ScrollView>
+        <FlatList
+            data={categories}
+            renderItem={
+                ({item, index}) => (
+                    <Categorie key={index} active={active[index]} resetActive={resetActive} id={index}>{item.children}</Categorie>
+                )
+            }
+            keyExtractor={(item, index) => index.toString()}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+        />
     );
 }
 
@@ -67,9 +78,10 @@ const styles = StyleSheet.create({
       backgroundColor: '#D9D9D9',
       justifyContent: 'center', // Centrez le texte horizontalement
       alignItems: 'center',
-      padding: 10,
+      padding: 8,
+      paddingHorizontal: 20,
       margin: 10, // Ajoutez un espacement autour du carré
-      borderRadius:20,
+      borderRadius:16,
     },
     text: {
       fontSize: 16,
@@ -86,9 +98,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#6B4EFF',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
+        padding: 8,
+        paddingHorizontal: 20,
         margin: 10,
-        borderRadius:20,
+        borderRadius:16,
     },
   });
 
