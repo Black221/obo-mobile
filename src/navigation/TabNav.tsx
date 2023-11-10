@@ -1,8 +1,8 @@
-import Home from '@/screens/home';
+import HomeScreen from '@screens/home';
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image } from 'tamagui';
-import {ProfilScreen} from "@screens/profil/profil.screen";
+import {ProfilScreen} from "@/screens/profil";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +19,7 @@ export default function TabNav () {
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={Home} options={{
+            <Tab.Screen name="Home" component={HomeScreen} options={{
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
