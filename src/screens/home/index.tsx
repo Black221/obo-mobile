@@ -1,13 +1,8 @@
 import {ScrollView, Text, View, YStack} from "tamagui";
 
-import { useState } from "react";
-import {Categorie, Categories} from "./components/categories.component";
-import {Story, Stories} from "./components/stories.component";
+import {Categories} from "./components/categories.component";
+import {Stories} from "./components/stories.component";
 import Header from "./components/header.component";
-import Barre from "@components/barre";
-import IconButton from "@components/IconButton";
-import Profil from "@components/profil";
-import Barre1 from "@components/barre1";
 import Posts from "@screens/home/components/posts.component";
 
 
