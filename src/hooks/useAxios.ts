@@ -34,6 +34,7 @@ const useAxiosFunction = () => {
         ).then((res: any) => {
             setResponse(res.data);
         }).catch((err: any) => {
+            console.log(err);
             setError(err?.response?.data || "Error Server");
         }).finally (() => {
             setLoading(false);
