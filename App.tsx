@@ -38,12 +38,12 @@ export default function App() {
   return (
     <TamaguiProvider config={config}>
       <Theme name="light">
-        {/* rendu */}
 
+        {/* rendu */}
         <NavigationContainer>
           <StackNav />
         </NavigationContainer>
-        
+
 			</Theme>
 			<StatusBar style="light" backgroundColor='black' animated={true}  hidden={false} translucent={false} />
     </TamaguiProvider>
