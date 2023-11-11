@@ -1,6 +1,6 @@
 import {ScrollView, Text, View, YStack} from "tamagui";
 
-import {Categories} from "./components/categories.component";
+import {Categories} from "../../components/categories.component";
 import {Stories} from "./components/stories.component";
 import Header from "./components/header.component";
 import Posts from "@screens/home/components/posts.component";

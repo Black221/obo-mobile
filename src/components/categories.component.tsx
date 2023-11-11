@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, FlatList} from 'react-native';
-import {ReactChildren} from "../../../../App";
+
 
 type CategorieProps = {
     active: boolean,
@@ -9,7 +9,11 @@ type CategorieProps = {
     id:number
 }
 
-
+/* CAS CONTEXT */
+export type ReactChildren = React.ReactNode
+    | React.ReactElement
+    | React.ReactNode[]
+    | React.ReactElement[]
 
 type CategoriesProps = {
     children?: ReactChildren,
@@ -63,7 +67,7 @@ export const Categories: React.FC<CategoriesProps> = ({children}) => {
                     <Categorie key={index} active={active[index]} resetActive={resetActive} id={index}>{item.children}</Categorie>
                 )
             }
-            keyExtractor={(item, index) => index.toString()}
+            // keyExtractor={(item, index) => index.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
         />

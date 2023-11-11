@@ -3,6 +3,7 @@ import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image } from 'tamagui';
 import {ProfilScreen} from "@/screens/profil";
+import SearchScreen from '@/screens/search';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ export default function TabNav () {
                     <FontAwesome5 name="home" size={24} color={focused ? "black" : "gray"} />
                 )
             }} />
-            <Tab.Screen name="Search" component={SettingsScreen} options={{
+            <Tab.Screen name="Search" component={SearchScreen} options={{
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (

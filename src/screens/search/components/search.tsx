@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+// import useDebounceValue from '@hooks/useDebouncedValue';
 
 interface SearchBarProps {
   onSearch: (text: string) => void;
   onSubmit: () => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSubmit }) => {
+const SearchBar = ({ onSearch, onSubmit } : SearchBarProps) : JSX.Element => {
+
   const [searchText, setSearchText] = useState('');
+
+  // const debouncedSearch = useDebounceValue(searchText, 500);
 
   const handleSearch = (text: string) => {
     setSearchText(text);
@@ -28,8 +31,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSubmit }) => {
       <TouchableOpacity onPress={onSubmit} style={styles.button}>
         <Ionicons name="md-send" size={24} color="gray" />
       </TouchableOpacity>
-      
-      
     </View>
   );
 };
@@ -37,15 +38,15 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onSubmit }) => {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        width: 305,
-        height: 40,
+        // width: 305,
+        height: 46,
         alignItems: 'center',
         backgroundColor: 'white',
         borderRadius: 20,
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: 'gray',
         paddingHorizontal: 10,
-        marginTop: 50, // Marge supérieure pour afficher la barre en haut
+        // marginTop: 50, // Marge supérieure pour afficher la barre en haut
         marginHorizontal: 10,
       },
       icon: {
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
       },
       input: {
         flex: 1,
-        padding: 10,
+        // padding: 10,
       },
       button: {
         padding: 0,
