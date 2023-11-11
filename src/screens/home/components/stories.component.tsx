@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { StyleSheet } from 'react-native';
-import {ScrollView, YStack, View, Text, XStack, Image} from "tamagui";
-import {ReactChildren} from "../../../../App";
+import {YStack, View, Text, XStack, Image} from "tamagui";
 
-const imageTest:string = "http://placekitten.com/200/300";
 
 import { imgInstance } from '@/api/imgApi';
 import { InfinityScrolling } from '@/components/infinityScrolling';
@@ -22,7 +20,7 @@ type StoryProps = {
 }
 
 type StoriesProps = {
-    children?: ReactChildren
+    children?: JSX.Element | JSX.Element[],
 }
 
 const styles = StyleSheet.create({
@@ -56,35 +54,49 @@ export const Story = (
 
     return (
 
-        <YStack  position={"relative"} justifyContent={"flex-end"} alignItems={"flex-start"} p={15} m={10} width={140} height={180} bg={"#D9D9D9"} borderRadius={20} >
-            <Image source={{uri: avatar}} style={styles.storyPreview} onPress={() => resetActive(id)}  />
-            <XStack justifyContent={"center"} alignItems={"center"} space={5}  >
-                <View bg={"#6B4EFF"} width={25} height={25} borderRadius={25} >
+        <YStack  
+            position={"relative"} 
+            justifyContent={"flex-end"} 
+            alignItems={"flex-start"} 
+            m={'$2'}  width={140}
+            height={180} 
+            bg={"#D9D9D9"} borderRadius={20} 
+        >
+            <Image 
+                source={{uri: avatar}} 
+                style={styles.storyPreview} 
+                onPress={() => resetActive(id)}  
+            />
+            <XStack 
+                alignItems={"center"} 
+                space={'$1'} padding={'$2'} borderRadius={20}
+                backgroundColor={"rgba(107,78,255,0.2)"}
+                w={"100%"}
+            >
+                <View 
+                    bg={"#6B4EFF"} 
+                    width={25} height={25} 
+                    borderRadius={25} 
+                >
                     <Image  source={{uri: avatar}} style={styles.profilImage} />
                 </View>
-                <Text> {first_name} </Text>
+                <Text col={'white'} fontWeight={"900"} fontSize={14} letterSpacing={1.5}> {first_name} </Text>
             </XStack>
-            {actived && <Text>Active</Text>}
         </YStack>
     )
 }
 
-const stories: any[] = [
-    {userName:"Lord", profilImage: imageTest, storyPreview: imageTest},
-    {userName:"Lord", profilImage: imageTest, storyPreview: imageTest},
-    {userName:"Lord", profilImage: imageTest, storyPreview: imageTest},
-];
-
 
 export const Stories: React.FC<StoriesProps> = ({children}) => {
-    const [active, setActive] = useState<boolean[]>(stories.map(s=>false))
-    const resetActive = (key:number) => {
-        setActive( active => active.map((a, id) => id === key ) )
-    }
+
+
     return(
         <InfinityScrolling 
+            style={{
+                space: 20
+            }}
             renderItem={
-                ({item}: any) => <Story {...item} active={active[item.id]} resetActive={resetActive } />
+                ({item}: any) => <Story {...item} />
             } 
             apiInstance={imgInstance} 
             uri={"api/users"} 

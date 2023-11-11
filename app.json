@@ -26,6 +26,14 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": [
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow $(obo) to access your microphone."
+        }
+      ]
+    ],
     "experiments": {
       "tsconfigPaths": true
     }

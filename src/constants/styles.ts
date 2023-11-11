@@ -1,39 +1,28 @@
 
 
 export const APP_COLORS = {
+
+
+
     bg: '#fff',
     bgMain: '#f5f5f5',
     iconBg: '#f5f5f5',
     iconMainBg: '#fff',
     iconColor: '#666',
-    iconMainColor: '#1890ff',
+    iconMainColor: '#2B7CD3',
     text: '#333',
-    textMain: '#1890ff',
+    textMain: '#2B7CD3',
     textLight: '#666',
     textLighter: '#999',
     textLightest: '#ccc',
     border: '#ddd',
-    borderMain: '#1890ff',
+    borderMain: '#2B7CD3',
     borderLight: '#eee',
     borderLighter: '#f5f5f5',
     borderLightest: '#fafafa',
     borderDark: '#ccc',
     borderDarker: '#999',
     borderDarkest: '#666',
-    primary: '#1890ff',
-    primaryLight: '#40a9ff',
-    primaryLighter: '#69c0ff',
-    primaryLightest: '#91d5ff',
-    primaryDark: '#096dd9',
-    primaryDarker: '#0050b3',
-    primaryDarkest: '#003a8c',
-    secondary: '#faad14',
-    secondaryLight: '#ffd666',
-    secondaryLighter: '#fff566',
-    secondaryLightest: '#fff7ba',
-    secondaryDark: '#d48806',
-    secondaryDarker: '#ad6800',
-    secondaryDarkest: '#874d00',
     success: '#52c41a',
     successLight: '#95de64',
     successLighter: '#b7eb8f',
@@ -131,4 +120,11 @@ export const APP_COLORS = {
     shadowOverlayPrimaryDark: 'rgba(24, 144, 255, 0.75)',
     shadowOverlayPrimaryLightest: 'rgba(24, 144, 255, 0.1)',
     shadowOverlayPrimaryDarkest: 'rgba(24, 144, 255, 0.9)',
+}
+
+export const MAIN_COLORS = {
+    textLight: 'white',
+    textDark: 'black',
+    primary: '#6B4EFF',
+    secondary: '#2B7CD3',
 }

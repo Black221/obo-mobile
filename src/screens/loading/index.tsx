@@ -2,14 +2,28 @@ import { View, Image } from "react-native"
 import { useState, useEffect } from "react"
 
 
+const logoWhite = require("@assets/logo/logo-white.png")
+const logoWhite1 = require("@assets/logo/logo-white-one.png")
+const logoWhiteEmpty = require("@assets/logo/logo-white-empty.png")
+
 
 export default function LoadingScreen () {
 
+    const [loading, setloading] = useState({count: 0, total: 3})
+
     const IMAGE = [
-        require("@assets/logo/logo-white-empty.png"),
-        require("@assets/logo/logo-white-one.png"),
-        require("@assets/logo/logo-white.png"),
+        logoWhiteEmpty,
+        logoWhite1,
+        logoWhite,
     ]
+
+    useEffect(() => {
+        IMAGE.forEach((image) => {
+            console.log(image)
+
+        });
+      }, [])
+
 
     const [render, setRender] = useState(0)
 

@@ -3,7 +3,6 @@ import {View, XStack, Image, Text, YStack, ScrollView, useGroupItem} from "tamag
 import React, {useState, useEffect, ReactNode, useRef} from "react";
 import useAxiosFunction from "@/hooks/useAxios";
 import { imgInstance } from "@/api/imgApi";
-import { ReactChildren } from "App";
 import {
     Dimensions,
     NativeScrollEvent,
@@ -16,7 +15,7 @@ import {
 } from "react-native";
 
 type MediaBoxProps = {
-    children?: ReactChildren,
+    children?: JSX.Element | JSX.Element[],
     posts:string[]
 }
 type MediaProps = {

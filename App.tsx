@@ -6,12 +6,9 @@ import StackNav from '@/navigation/StackNav';
 import { NavigationContainer } from '@react-navigation/native';
 import LoadingScreen from '@/screens/loading';
 import { useEffect, useState } from 'react';
+import { AppProvider } from '@/contexts/appContext';
 
-/* CAS CONTEXT */
-export type ReactChildren = React.ReactNode
-    | React.ReactElement
-    | React.ReactNode[]
-    | React.ReactElement[]
+
 
 
 export default function App() {
@@ -38,12 +35,14 @@ export default function App() {
   return (
     <TamaguiProvider config={config}>
       <Theme name="light">
+        <AppProvider>
 
-        {/* rendu */}
-        <NavigationContainer>
-          <StackNav />
-        </NavigationContainer>
+          {/* rendu */}
+          <NavigationContainer>
+            <StackNav />
+          </NavigationContainer>
 
+        </AppProvider>
 			</Theme>
 			<StatusBar style="light" backgroundColor='black' animated={true}  hidden={false} translucent={false} />
     </TamaguiProvider>

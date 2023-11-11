@@ -5,6 +5,7 @@ import { ActivityIndicator, FlatList, Text } from "react-native";
 
 
 export function InfinityScrolling({
+    style,
     renderItem,
     apiInstance, 
     uri, 
@@ -19,7 +20,7 @@ export function InfinityScrolling({
 } : any) {
 
     const [isFirstPageReceived, setIsFirstPageReceived] = useState(false);
-    const next = useRef<any>(context.current || 0);
+    const next = useRef<any>(context.current);
     const [dataToRender, setDataToRender] = useState<any>([]);
     const [response, error, isLoading, fetch] = useAxiosFunction();
     const [end, setEnd] = useState(false);
@@ -48,13 +49,18 @@ export function InfinityScrolling({
         });
     };
 
+
     useEffect(() => {
         if (response) {
-            setIsFirstPageReceived(true);
-            setDataToRender([...dataToRender, ...response.data]);
-            next.current = context.next(next.current);
-            if (response.data.length === 0) {
-                setEnd(true)
+            if (!isFirstPageReceived) {
+                setDataToRender(response.data);
+                setIsFirstPageReceived(true);
+            } else {
+                setDataToRender([...dataToRender, ...response.data]);
+                next.current = context.next(next.current);
+                if (response.data.length === 0) {
+                    setEnd(true)
+                }
             }
         }
     }, [response]);
@@ -81,13 +87,16 @@ export function InfinityScrolling({
 
     return (
         <FlatList
+            style={style}
             horizontal={horizontal}
             data={dataToRender}
-            keyExtractor={(item: any) => item.id}
+            keyExtractor={(item: any, index) => item.id + '-' + index}
             renderItem={renderItem}
             onEndReached={fetchNextPage}
-            onEndReachedThreshold={0.8}
+            onEndReachedThreshold={1.2}
             ListFooterComponent={ListEndLoader} // Loader when loading next page.
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
         />
     );
 }
