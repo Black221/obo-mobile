@@ -33,21 +33,21 @@ export const CoverComponent = ({ coverImage, profilImage, profilName }:CoverProp
     profilName: "Stark Insdustry"
 }) => {
     return (
-            <View height={300} >
-                <View h={200} borderBottomLeftRadius={20} borderBottomRightRadius={20}  bg={"#D9D9D9"}  position={"relative"} justifyContent="flex-end" alignItems="center">
-                    <Image style={styles.coverImage} source={{
-                        uri:coverImage
-                    }} />
-                    <View position={"relative"}  top={100} h={200} w={200} space={10} justifyContent="flex-end" alignItems="center">
-                        <View position={"relative"} h={150} w={150} borderRadius={75} bg={"#AAACAE"} justifyContent="center" alignItems="center">
-                            <Image style={styles.profilImage} source={{
-                                uri:profilImage
-                            }} />
-                        </View>
-                        <Text fontSize={18} fontWeight={"bold"} > {profilName} </Text>
+        <View height={300} bg={'white'} >
+            <View h={200} borderBottomLeftRadius={20} borderBottomRightRadius={20}  bg={"#D9D9D9"}  position={"relative"} justifyContent="flex-end" alignItems="center">
+                <Image style={styles.coverImage} source={{
+                    uri:coverImage
+                }} />
+                <View position={"relative"}  top={100} h={200} w={200} space={10} justifyContent="flex-end" alignItems="center">
+                    <View position={"relative"} h={150} w={150} borderRadius={75} bg={"#AAACAE"} justifyContent="center" alignItems="center">
+                        <Image style={styles.profilImage} source={{
+                            uri:profilImage
+                        }} />
                     </View>
+                    <Text fontSize={18} fontWeight={"bold"} > {profilName} </Text>
                 </View>
             </View>
+        </View>
     )
 
 }
