@@ -1,9 +1,9 @@
 
 import { View, Text, YStack, XStack, Input } from "tamagui"
-import { SmallUserDisplay, UserComment } from "./userDisplay"
+import { SmallUserDisplay, UserComment } from "../../../components/userDisplay"
 import { MAIN_COLORS } from "@/constants/styles";
-import { TextDescription } from "./textDisplay";
-import { DisplayMultiMedia, RenderMedia } from "./mediaDisplay";
+import { TextDescription } from "../../../components/textDisplay";
+import { DisplayMultiMedia, RenderMedia } from "../../../components/mediaDisplay";
 import { Ionicons } from "@expo/vector-icons";
 
 
