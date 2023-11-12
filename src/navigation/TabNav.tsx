@@ -1,9 +1,11 @@
-import HomeScreen from '@screens/home';
+import Home from '@/screens/home';
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image } from 'tamagui';
 import {ProfilScreen} from "@/screens/profil";
 import SearchScreen from '@/screens/search';
+// import {ProfilScreen} from "@screens/profil/profil.screen";
+import {CameraScreen} from "@screens/camera/camera.screen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +22,14 @@ export default function TabNav () {
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen} options={{
+            <Tab.Screen name="Reels" component={CameraScreen} options={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <FontAwesome5 name="video" size={24} color={focused ? "black" : "gray"} />
+                )
+            }} />
+            <Tab.Screen name="Home" component={Home} options={{
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
@@ -39,13 +48,6 @@ export default function TabNav () {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
                     <Feather name="plus-square" size={28} color={focused ? "black" : "gray"} />
-                )
-            }} />
-            <Tab.Screen name="Reels" component={SettingsScreen} options={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <FontAwesome5 name="video" size={24} color={focused ? "black" : "gray"} />
                 )
             }} />
             <Tab.Screen name="Profile" component={ProfilScreen} options={{

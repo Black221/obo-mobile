@@ -129,48 +129,120 @@ const PostAddon: React.FC = () => {
 const MediaBox: React.FC<MediaBoxProps> = ({posts}) => {
 
     //[TODO] Animations for rounded *later
-        const [postion, setPostion] = useState(new Animated.Value(0))
         const [opacity, __] = useState(new Animated.Value(1))
         const [width,___] = useState(new Animated.Value(1))
-        const pushValue = 1;
-        const pushToLeft = () => {
-            const animatedPosition = Animated.spring(postion, {
-                toValue: pushValue * (active-1),
-                // duration: 1,
-                useNativeDriver: true
-            });
+        // const pushValue = 1;
+        // const pushToLeft = () => {
+        //     const animatedPosition = Animated.spring(postion, {
+        //         toValue: pushValue * (active-1),
+        //         // duration: 1,
+        //         useNativeDriver: true
+        //     });
 
-            animatedPosition.start(({finished}) => {
-                if (finished) {
-                    animatedPosition.reset()
-                    setPostion(new Animated.Value(pushValue * (active-1)))
-                    // postion.setOffset(20);
+        //     animatedPosition.start(({finished}) => {
+        //         if (finished) {
+        //             animatedPosition.reset()
+        //             setPostion(new Animated.Value(pushValue * (active-1)))
+        //             // postion.setOffset(20);
+        //
+        //         }
+        //     })
+        // }
+        // const pushToRight = () => {
+        //     const animatedPosition = Animated.spring(postion, {
+        //         toValue: -pushValue*(active-1),
+        //         // duration: 1,
+        //         useNativeDriver:true
+        //     });
+        //
+        //     animatedPosition.start(({finished}) => {
+        //         if ( finished ) {
+        //             animatedPosition.reset()
+        //             setPostion(new Animated.Value(-pushValue*(active-1)))
+        //         }
+        //     })
+        //
+        // }
 
-                }
-            })
+     enum ANIMATION_METHOD {
+            SCROLL_LEFT,
+            SCROLL_RIGHT,
+            SET_CURRENT,
+            DOWN_CURRENT,
+            NOTHING
+    }
+
+
+    enum POST_SCROLL {
+        LEFT,
+        RIGHT,
+        NOTHING
+    }
+    const RoundedChild : React.FC<{activated:boolean, id:number, animate?:ANIMATION_METHOD}> = ({activated, id, animate}) => {
+        const [postion, setPostion] = useState(new Animated.ValueXY({x:0, y:0}))
+        const [active, setActive] = useState<boolean>();
+        useEffect(() => {
+            setActive(activated)
+        }, [activated]);
+
+        useEffect(() => {
+            // onScrollToLeft()
+            if (animate === ANIMATION_METHOD.SCROLL_LEFT){
+                onScrollToLeft()
+            }else if (animate === ANIMATION_METHOD.SCROLL_RIGHT){
+                onScrollToRight()
+            }else if (animate === ANIMATION_METHOD.SET_CURRENT){
+                onActive()
+            }else if (animate === ANIMATION_METHOD.DOWN_CURRENT){
+                onInActive()
+            }
+
+        }, [animate]);
+        const onScrollToLeft = () => {
+            Animated.stagger(125, [
+                Animated.timing(postion.x, {
+                    toValue: 100,
+                    useNativeDriver:true,
+                    delay:1000
+                })
+            ]).start()
         }
-        const pushToRight = () => {
-            const animatedPosition = Animated.spring(postion, {
-                toValue: -pushValue*(active-1),
-                // duration: 1,
-                useNativeDriver:true
-            });
 
-            animatedPosition.start(({finished}) => {
-                if ( finished ) {
-                    animatedPosition.reset()
-                    setPostion(new Animated.Value(-pushValue*(active-1)))
-                }
-            })
-
+        const onScrollToRight =  () => {
+            Animated.timing(postion.x, {
+                toValue: -100,
+                useNativeDriver:true,
+                delay:1000
+            }).start()
         }
 
-    const Rounded: React.FC<{active:boolean}> = ({active}) => {
+        const onActive =  () => {
+            Animated.stagger(125, [
+                Animated.timing(postion.y, {
+                    toValue: -2,
+                    useNativeDriver:true,
+                    delay:1000
+                })
+            ]).start()
+        }
+
+        const onInActive =  () => {
+            Animated.stagger(125, [
+                Animated.timing(postion.y, {
+                    toValue: 0,
+                    useNativeDriver:true,
+                    delay:1000
+                })
+            ]).start()
+        }
+
         return (
-            active? (<Animated.View
+                <Animated.View
                     style={[
                         {
-                            borderRadius:5,
+                            overflow: "hidden",
+                            position: "relative",
+                            borderRadius: 5,
                             width: 50,
                             height: 5,
                             opacity,
@@ -178,20 +250,102 @@ const MediaBox: React.FC<MediaBoxProps> = ({posts}) => {
                             backgroundColor: "gray",
                             transform:[
                                 {
-                                    translateX:postion
+                                    translateY:postion.y
+                                },
+                            ]
+                        }
+                    ]}
+                >
+                    {active?
+                        (< Animated.View
+                            style={[
+                                {
+                                    position: "absolute",
+                                    borderRadius: 5,
+                                    width: 50,
+                                    height: 5,
+                                    opacity,
+                                    zIndex: 2,
+                                    backgroundColor: "red",
+                                    transform: [
+                                {
+                                    translateX: postion.x
                                 },
                                 {
                                     scaleX: width
                                 }
-                            ]
-                        },
-                    ]}
-                />)
-                :
-                (<View width={5} height={5} borderRadius={10} bg={"black"} />)
+                                    ]
+                                },
+                            ]}
+                        />)
+                    :   (< Animated.View
+                            style={[
+                                {
+                                    position: "absolute",
+                                    borderRadius: 5,
+                                    width: 50,
+                                    height: 5,
+                                    opacity,
+                                    zIndex: 2,
+                                    // backgroundColor: "red",
+
+                                },
+                            ]}
+                        />)
+                    }
+                </Animated.View>
+        )
+    }
+    const Rounded: React.FC<{active:boolean, posts: string[], action:POST_SCROLL}> = ({active, posts, action}) => {
+
+        const [activated, setActivated] = useState<boolean[]>([true, false, false, false]);
+        const [animations, setAnimations] = useState<ANIMATION_METHOD[]>([ANIMATION_METHOD.SET_CURRENT, ANIMATION_METHOD.NOTHING, ANIMATION_METHOD.NOTHING, ANIMATION_METHOD.NOTHING]);
+
+        useEffect(() => {
+
+            //setTimeout( () =>  setAnimations([ANIMATION_METHOD.SCROLL_LEFT, ANIMATION_METHOD.DOWN_CURRENT, ANIMATION_METHOD.NOTHING, ANIMATION_METHOD.NOTHING]), 1500 )
+
+            // setAnimations( activated => [...activated].map(el => el ? ANIMATION_METHOD.SET_CURRENT : ANIMATION_METHOD.DOWN_CURRENT) )
+
+            if (action === POST_SCROLL.LEFT){
+                // const newActivated:boolean[] = [];
+                // let value = false
+                // for (const active of [...activated]) {
+                //     newActivated.push(value)
+                //     value = false
+                //     if (active)
+                //         value = true
+                // }
+                // console.log(newActivated)
+                //
+
+                // setActivated( activated => {
+                //     let value = false
+                //     return [...activated].map(el => {
+                //         return value
+                //         value=false
+                //         if (el)
+                //             value = true
+                //     })
+                // })
+
+
+                setActivated( activated => activated.map((el, id) => id === 2 ))
+
+                console.log(activated)
+            }
+
+        }, [action]);
+
+
+        return (
+                posts.map((i, id) => (
+                    <RoundedChild id={id} activated={activated[id]} animate={animations[id]}/>
+                ))
         )
     }
 
+    const [scroll, setScroll] = useState<POST_SCROLL>(POST_SCROLL.NOTHING);
     const [active, setActive] = useState(1);
     const [layout, setLayout] = useState({
         width: 0,
@@ -202,9 +356,10 @@ const MediaBox: React.FC<MediaBoxProps> = ({posts}) => {
         const windowWidth = Dimensions.get('window').width;
         let pageNumber = Math.min(Math.max(Math.floor(e.nativeEvent.contentOffset.x / windowWidth + 0.5) + 1, 0), posts.length);
         if ( pageNumber >= active ) {
-            pushToLeft()
+            //scroll left
+            setScroll(POST_SCROLL.LEFT)
         }else {
-            pushToRight()
+            setScroll(POST_SCROLL.RIGHT)
         }
         setActive(pageNumber)
     }
@@ -225,12 +380,11 @@ const MediaBox: React.FC<MediaBoxProps> = ({posts}) => {
                 onMomentumScrollEnd={(e) => onScrollEnd(e)}
                 data={posts}
                 renderItem={( {item, index} ) => <Media key={index} width={layout.width} src={item} /> }
+
             />
 
             <XStack  width={"100%"} flex={1} justifyContent={"center"} alignItems={"flex-end"} space={10} position={"absolute"} bottom={10} >
-                {posts.map((post, id) => (id+1 === active) ? (<Rounded active={true}/>)
-                    : (<Rounded active={false}/>)
-                )}
+                <Rounded active={true} posts={posts} action={scroll} />
             </XStack>
         </RView>
     );
