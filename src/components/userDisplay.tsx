@@ -48,12 +48,101 @@ export const SmallUserDisplay = ({
     )
 }
 
+export const MediumUserDisplay = ({
+    avatar,
+    userName,
+    info,
+    details
+} : {
+    avatar:string,
+    userName:string,
+    info:string,
+    details: boolean
+}) => {
+    
+    return (
+        <XStack height={220}>
+            <YStack 
+                width={120} space={"$1"} padding={"$2"}
+                borderWidth={1.5} borderColor={"$gray6"} borderRadius={"$4"}
+                alignItems="center" justifyContent="space-around"
+            >
+                <Image source={{
+                    uri: avatar
+                }} style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 500
+                }} />
+                <Text fontSize={ 16 } fontWeight={ "700" }>{userName}</Text>
+                <Text textAlign="justify" fontSize={ 12 } color={"$gray12"}>{info}</Text>
+            </YStack>
+            <YStack space={"$3"} paddingVertical={"$2"} paddingHorizontal={"$1"}>
+                <View>
+                    <Ionicons name="bookmark-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>
+                <View>
+                    <Ionicons name="chatbox-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>
+                <View>
+                    <Ionicons name="share-social-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>
+            </YStack>
+        </XStack>
+    )
+}
 
-export const LargeUserDisplay = () => {
+
+export const LargeUserDisplay = ({
+    avatar,
+    userName,
+    info,
+    details
+} : {
+    avatar:string,
+    userName:string,
+    info:string,
+    details: boolean
+}) => {
 
     return (
-        <View>
-
+        <View 
+            space={"$2"} padding={"$2"} 
+            borderWidth={1.5} borderColor={"$gray6"} borderRadius={"$4"}
+        >
+            <XStack space={"$2"}>
+                <View>
+                    <Image source={{
+                        uri: avatar
+                    }} style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 10
+                    }} />
+                </View>
+                <YStack flex={1} space={"$2"}>
+                    <Text fontSize={
+                        16
+                    } fontWeight={
+                        "700"
+                    }>{userName}</Text>
+                    <Text fontSize={
+                        12
+                    } color={"$gray12"}>{info}</Text>
+                </YStack>
+                {details && <View onPress={() => {}}>
+                    <Ionicons name="bookmark" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>}
+            </XStack>
+            <XStack space={"$3"}>
+                <View>
+                    <Ionicons name="chatbox-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>
+                <View>
+                    <Ionicons name="share-social-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
+                </View>
+                
+            </XStack>
         </View>
     )
 }

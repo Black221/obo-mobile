@@ -1,18 +1,18 @@
 import { ICON_SIZE } from '@/constants/dimentions'
 import { MAIN_COLORS } from '@/constants/styles'
 import { Ionicons } from '@expo/vector-icons'
-import { View, Text, Input, XStack, Button, ScrollView } from 'tamagui'
+import { View, Text, XStack, Button, ScrollView } from 'tamagui'
 import Filter from './components/filter'
 import { SearchInput } from './components/searchInput'
 import { useState } from 'react';
-import PostsListDouble from '@/components/postsListDouble'
+import { LargeUserDisplay, MediumUserDisplay } from '@/components/userDisplay'
 
 export default function SearchScreen () {
 
     const [showFilter, setShowFilter] = useState<boolean>(false)
 
     return (
-        <ScrollView paddingTop={'$6'} space={'$6'} showsVerticalScrollIndicator={false} >
+        <ScrollView mt={'$6'} space={'$6'} showsVerticalScrollIndicator={false} >
             <View>
                 <Text textAlign='center' fontSize={28} w={"80%"} mx={"auto"} letterSpacing={1} color={MAIN_COLORS.primary}>
                     Search Screen 
@@ -45,6 +45,8 @@ export default function SearchScreen () {
 
                 
             </View>
+            <MediumUserDisplay avatar={"https://i.pravatar.cc/300"} userName={"John Doe"} info={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae."} details={true} />
+            <LargeUserDisplay avatar={"https://i.pravatar.cc/300"} userName={"John Doe"} info={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae."} details={true} />
         </ScrollView>
     )
 }
