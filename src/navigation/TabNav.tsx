@@ -22,13 +22,7 @@ export default function TabNav () {
 
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Reels" component={CameraScreen} options={{
-                headerShown: false,
-                tabBarShowLabel: false,
-                tabBarIcon: ({ focused }) => (
-                    <FontAwesome5 name="video" size={24} color={focused ? "black" : "gray"} />
-                )
-            }} />
+            
             <Tab.Screen name="Home" component={Home} options={{
                 headerShown: false,
                 tabBarShowLabel: false,
@@ -48,6 +42,13 @@ export default function TabNav () {
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
                     <Feather name="plus-square" size={28} color={focused ? "black" : "gray"} />
+                )
+            }} />
+            <Tab.Screen name="Reels" component={CameraScreen} options={{
+                headerShown: false,
+                tabBarShowLabel: false,
+                tabBarIcon: ({ focused }) => (
+                    <FontAwesome5 name="video" size={24} color={focused ? "black" : "gray"} />
                 )
             }} />
             <Tab.Screen name="Profile" component={ProfilScreen} options={{
