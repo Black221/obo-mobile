@@ -61,7 +61,7 @@ const PostItem = ({
 
 
     return (
-        <YStack margin={"$2"} space={"$2"} borderWidth={1} borderColor={"$gray6"} borderRadius={"$4"}>
+        <YStack bg={"white"} margin={"$2"} space={"$2"} borderWidth={1} borderColor={"$gray6"} borderRadius={"$4"}>
             <SmallUserDisplay 
                 avatar={user.avatar}
                 userName={user.userName}

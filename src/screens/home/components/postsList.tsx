@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, SafeAreaView, View } from 'react-native';
 import PostItem from './postItem';
+import { ScrollView } from 'tamagui';
 
 const PostsList = ({
     posts,
@@ -9,17 +10,19 @@ const PostsList = ({
     } : any
 ) => {
     return (
-        <FlatList
-            data={posts}
-            renderItem={({ item }) => (
-                <PostItem
-                    post={item}
-                    onPress={onPress}
-                />
-            )}
-            keyExtractor={(item) => item.id}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-        />
+        <ScrollView horizontal={true} scrollEnabled={false} contentContainerStyle={{width: '100%', height: '100%'}}>
+            <FlatList nestedScrollEnabled={true}
+                horizontal={false} showsHorizontalScrollIndicator={false}
+                data={posts}
+                renderItem={({item}) => (
+                    <PostItem
+                        {...item}
+                    />
+                )}
+                keyExtractor={(item) => item.id}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+            />
+        </ScrollView>
     );
 }
 

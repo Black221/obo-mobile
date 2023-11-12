@@ -61,9 +61,9 @@ export const MediumUserDisplay = ({
 }) => {
     
     return (
-        <XStack height={220}>
+        <YStack maxHeight={280} margin={"$2"}>
             <YStack 
-                width={120} space={"$1"} padding={"$2"}
+                width={160} space={"$1"} padding={"$2"} backgroundColor={"white"} 
                 borderWidth={1.5} borderColor={"$gray6"} borderRadius={"$4"}
                 alignItems="center" justifyContent="space-around"
             >
@@ -76,19 +76,20 @@ export const MediumUserDisplay = ({
                 }} />
                 <Text fontSize={ 16 } fontWeight={ "700" }>{userName}</Text>
                 <Text textAlign="justify" fontSize={ 12 } color={"$gray12"}>{info}</Text>
+                <XStack w={"100%"} justifyContent="space-around" paddingVertical={"$2"} paddingHorizontal={"$1"}>
+                    <View>
+                        <Ionicons name="bookmark-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                    </View>
+                    <View>
+                        <Ionicons name="chatbox-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                    </View>
+                    <View>
+                        <Ionicons name="share-social-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                    </View>
+                </XStack>
             </YStack>
-            <YStack space={"$3"} paddingVertical={"$2"} paddingHorizontal={"$1"}>
-                <View>
-                    <Ionicons name="bookmark-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
-                </View>
-                <View>
-                    <Ionicons name="chatbox-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
-                </View>
-                <View>
-                    <Ionicons name="share-social-outline" size={ICON_SIZE} color={MAIN_COLORS.primary} />
-                </View>
-            </YStack>
-        </XStack>
+            
+        </YStack>
     )
 }
 
