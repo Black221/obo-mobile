@@ -27,9 +27,8 @@ export default function SearchScreen () {
                     </Text>
                 </View>
 
-                <SearchInput value={''} onChange={() => {}} onSubmit={() => {}} />
-
-                <View paddingBottom={"$6"}>
+                <View>
+                    <SearchInput value={''} onChange={() => {}} onSubmit={() => {}} />
                     <XStack alignItems='center'  padding={'$2'}>
                         <Text color={"$gray10"} flex={1} fontSize={20}>Filtre</Text>
                         <View w={40} h={40} bg={"$gray2"} borderRadius={40} alignItems='center' justifyContent='center' onPress={
@@ -47,6 +46,10 @@ export default function SearchScreen () {
                     
                         <Button  onPress={() => {}} bg={"white"} m={'$3'} fontSize={16} >Appliquer filtre</Button>
                     </View>)}
+                </View>
+
+                <View paddingBottom={"$6"}>
+
 
                     <View>
                         <Text color={"$gray10"} fontSize={20} padding={'$2'}>Résultats</Text>
