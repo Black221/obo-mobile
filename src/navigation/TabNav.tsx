@@ -1,11 +1,14 @@
-import Home from '@/screens/home';
 import { FontAwesome5, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text, View, Image } from 'tamagui';
+
+
 import {ProfilScreen} from "@/screens/profil";
 import SearchScreen from '@/screens/search';
-// import {ProfilScreen} from "@screens/profil/profil.screen";
+import Home from '@/screens/home';
 import {CameraScreen} from "@screens/camera/camera.screen";
+import MyTabBar from './components/TabBar';
+import TabBarButton from './components/TabBarButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -21,7 +24,7 @@ export default function TabNav () {
     }
 
     return (
-        <Tab.Navigator>
+        <Tab.Navigator tabBar={props => <MyTabBar {...props}/>} >
             
             <Tab.Screen name="Home" component={Home} options={{
                 headerShown: false,
@@ -41,8 +44,9 @@ export default function TabNav () {
                 headerShown: false,
                 tabBarShowLabel: false,
                 tabBarIcon: ({ focused }) => (
-                    <Feather name="plus-square" size={28} color={focused ? "black" : "gray"} />
-                )
+                    <FontAwesome5 name="plus-square" size={28} color={focused ? "black" : "gray"} />
+                ),
+                tabBarButton: () => <TabBarButton />
             }} />
             <Tab.Screen name="Reels" component={CameraScreen} options={{
                 headerShown: false,

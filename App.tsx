@@ -42,6 +42,9 @@ export default function App() {
             <StackNav />
           </NavigationContainer>
 
+          {/* test native curve navigation */}
+          {/* <Navigation /> */}
+
         </AppProvider>
 			</Theme>
 			<StatusBar style="light" backgroundColor='black' animated={true}  hidden={false} translucent={false} />

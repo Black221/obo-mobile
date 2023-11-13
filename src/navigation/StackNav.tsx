@@ -2,6 +2,7 @@ import Home from '@/screens/home';
 import { View, Text } from 'tamagui';
 import { createStackNavigator } from '@react-navigation/stack';
 import TabNav from './TabNav';
+// import { CurveTabNav } from './CurveTabNav';
 
 const Stack = createStackNavigator();
 

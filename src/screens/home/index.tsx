@@ -4,7 +4,7 @@ import {Stories} from "./components/stories.component";
 import { HomeHeader } from "@/components/screenHeaders";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { MAIN_COLORS } from "@/constants/styles";
-import { ICON_SIZE } from "@/constants/dimentions";
+import { ICON_SIZE, TAB_BAR_HEIGHT } from "@/constants/dimentions";
 import PostItem from "./components/postItem";
 import PostsList from "./components/postsList";
 import { SafeAreaView } from "react-native";
@@ -15,7 +15,9 @@ export default function HomeScreen() {
 
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{
+            paddingBottom: TAB_BAR_HEIGHT + 20
+        }}>
 
             <ScrollView bg={"whitesmoke"} nestedScrollEnabled={true}  mb={0}  paddingVertical={10} showsVerticalScrollIndicator={false}>
 
