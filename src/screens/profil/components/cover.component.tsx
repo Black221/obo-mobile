@@ -33,7 +33,7 @@ export const CoverComponent = ({ coverImage, profilImage, profilName }:CoverProp
     profilName: "Stark Insdustry"
 }) => {
     return (
-        <View height={300} bg={'white'} >
+        <View height={300}  >
             <View h={200} borderBottomLeftRadius={20} borderBottomRightRadius={20}  bg={"#D9D9D9"}  position={"relative"} justifyContent="flex-end" alignItems="center">
                 <Image style={styles.coverImage} source={{
                     uri:coverImage

@@ -34,7 +34,7 @@ export const DescriptionComponent = ({text}:DescriptionProps) => {
     }
 
     return (
-        <View paddingHorizontal={10} >
+        <View paddingHorizontal={'$2'} >
             <Text fontSize={16} >
                 {description.value}
                 {description.isComplet ? (

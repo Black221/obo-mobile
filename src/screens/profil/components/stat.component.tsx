@@ -1,6 +1,8 @@
 import {Text, XStack, YStack} from 'tamagui';
-import {FontAwesome5} from "@expo/vector-icons";
+import {FontAwesome5, Ionicons} from "@expo/vector-icons";
 import {useEffect, useState} from "react";
+import { ICON_SIZE } from '@/constants/dimentions';
+import { MAIN_COLORS } from '@/constants/styles';
 
 interface StatProps {
     likes:number,
@@ -35,24 +37,23 @@ export const StatComponent = ({likes, views, followers}:StatProps = {
     return (
         <XStack justifyContent={"space-evenly"} alignItems={"center"}  >
             <YStack justifyContent={"center"} alignItems={"center"}>
-                <FontAwesome5 name="heart" size={24} color="#f01625" />
-                <Text fontSize={18} color={"black"} fontWeight={"bold"} > {getRenderStatValue(stat.likes)} </Text>
+                <Ionicons name="heart-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                <Text fontSize={18} letterSpacing={1} color={"black"} fontWeight={"bold"} > {getRenderStatValue(stat.likes)} </Text>
                 <Text fontSize={16} color={"gray"}> Likes </Text>
             </YStack>
             <YStack w={2} h={40} bg={"#D9D9D9"}/>
             <YStack justifyContent={"center"} alignItems={"center"}>
-                <FontAwesome5 name="eye" size={24} color="#0f53e3" />
-                <Text fontSize={18} color={"black"}  fontWeight={"bold"} > {getRenderStatValue(stat.views)} </Text>
+                <Ionicons name="eye-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                <Text fontSize={18} letterSpacing={1} color={"black"}  fontWeight={"bold"} > {getRenderStatValue(stat.views)} </Text>
                 <Text fontSize={16} color={"gray"}> Views </Text>
 
             </YStack>
             <YStack w={2} h={40} bg={"#D9D9D9"}/>
             <YStack justifyContent={"center"} alignItems={"center"}>
-                <FontAwesome5 name="users" size={24} color="black" />
-                <Text fontSize={18} fontWeight={"bold"} > {getRenderStatValue(stat.followers)} </Text>
+                <Ionicons name="people-outline" size={ICON_SIZE} color={MAIN_COLORS.secondary} />
+                <Text fontSize={18} letterSpacing={1} fontWeight={"bold"} > {getRenderStatValue(stat.followers)} </Text>
                 <Text fontSize={16} color={"gray"}> Followers </Text>
             </YStack>
         </XStack>
-
     )
 }
